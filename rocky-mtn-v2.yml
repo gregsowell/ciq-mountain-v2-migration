@@ -52,7 +52,7 @@
 
   - name: copy repo file to local ansible executor for parsing.  Saves to playbookdir/hostname/fullOrigPathToFile
     ansible.builtin.fetch:
-      src: "{{ repo_file }}"
+      src: "{{ repo_file }}.old"
       dest: "{{ playbook_dir }}"
 
 
@@ -97,7 +97,7 @@
 
     - name: file directory build.  This is used to lookup the ciq.repo files from each server for use in next task.
       ansible.builtin.set_fact:
-        old_repo_file: "{{ playbook_dir }}/{{ inventory_hostname }}/{{ repo_file }}"
+        old_repo_file: "{{ playbook_dir }}/{{ inventory_hostname }}/{{ repo_file }}.old"
 
     - name: Enable the subscription by looping through old repo and enabeling things that were previously enabled
       when: lookup('ansible.builtin.ini', 'enabled', section=item, file=old_repo_file) == "1"
