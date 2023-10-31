@@ -27,7 +27,7 @@
     delegate_to: localhost
 
   - name: If the Ascender token was present, then reset the mtn_access_key variable
-    when: mtn_env_key is defined
+    when: mtn_env_key is defined and mtn_env_key != ""
     set_fact:
       mtn_access_key: "{{ mtn_env_key }}"
     run_once: true
