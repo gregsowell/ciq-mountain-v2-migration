@@ -1,0 +1,16 @@
+[mountain-hosts]
+# example of a fully qualified domain host
+webhost12.gregsowell.com
+
+#example of a non FQDN host
+#add the ansible_host variable to specify what IP address ansible should use to connect
+webhost44 ansible_host=192.168.1.44
+
+#example of using IP ranges
+#this will attempt to connect to all hosts from 10.134.10.0 to 10.134.11.254
+#this is a quick and dirty way to pull in a lot of hosts at once
+10.134.1[0:1].[1:254]
+
+#here’s an example of doing the same thing via hostnames
+#This would be webserver001.gregsowell.com to webserver254.gregsowell.com
+webserver[001:254].gregsowell.com
