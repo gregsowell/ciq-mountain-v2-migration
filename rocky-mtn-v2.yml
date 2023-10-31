@@ -21,14 +21,14 @@
 
   tasks:
   - name: See if CIQ Mountain Access Token environment variable is set from Ascender
-    set_facts:
+    set_fact:
       mtn_env_key: "{{ lookup('ansible.builtin.env', 'MOUNTAIN_TOKEN') | default(omit)}}"
     run_once: true
     delegate_to: localhost
 
   - name: If the Ascender token was present, then reset the mtn_access_key variable
     when: mtn_env_key is defined
-    set_facts:
+    set_fact:
       mtn_access_key: "{{ mtn_env_key }}"
     run_once: true
     delegate_to: localhost
