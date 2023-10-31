@@ -41,7 +41,13 @@
     ansible.builtin.shell: "cat {{ repo_file }} | grep -o '\\[.*\\]' | tr -d '[]'"
     register: section_list
 
-  - name: make backup of repo file
+  - name: check if backup of repo file exists
+    ansible.builtin.stat:
+      path: "{{ repo_file }}.old"
+    register: repo_check
+
+  - name: make backup of repo file if it doesn't exist
+    when: not repo_check.stat.exists
     ansible.builtin.shell: "cat {{ repo_file }} > {{ repo_file }}.old"
 
   - name: copy repo file to local ansible executor for parsing.  Saves to playbookdir/hostname/fullOrigPathToFile
